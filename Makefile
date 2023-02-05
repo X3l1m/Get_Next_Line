@@ -22,7 +22,7 @@ AR		= ar
 ARFLAGS	= -rc
 ARCHIVE	= $(AR) $(ARFLAGS)
 ####################################
-SRC		= $(wildcard *.c)
+SRC		= get_next_line.c get_next_line_utils.c
 OBJ		= $(patsubst %.c,%.o,$(SRC))
 ####################################
 all: $(NAME)
@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo Archiving: $(NAME)
-	@$(ARCHIVE) $(NAME) $(OBJ)
+	$(ARCHIVE) $(NAME) $(OBJ)
 
 clean:
 	@echo Object files deleted.
@@ -44,7 +44,9 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
-	@echo Remade✅
+	@echo Remade
 
 arc: all clean
-	@echo Archive created✅
+	@echo Archive created
+	gcc main.c get_next_line.a -o main
+	main.exe
