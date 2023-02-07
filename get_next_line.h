@@ -10,5 +10,6 @@
 #endif
 
 char	*get_next_line(int fd);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif
