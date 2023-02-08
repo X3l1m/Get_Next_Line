@@ -10,11 +10,12 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	while (*s != (char)c)
 		if (!*s++)
 			return (0);
+	*s = 0;
 	return ((char *)s);
 }
 
