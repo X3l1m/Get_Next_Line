@@ -4,8 +4,20 @@
 
 int main()
 {
-	int fd = open("text.txt", O_RDWR);
-	char *domates = get_next_line(fd);
-	write(1, domates, 17);
-	//printf("%s", domates);
+	int fd = open("text.txt", O_RDONLY);
+	//get_next_line(fd);
+	char *domates;
+	domates = get_next_line(fd);
+	//write(1, domates, 100);
+	printf("%s", domates);
+	domates = get_next_line(fd);
+	//write(1, domates, 10);
+	printf("%s", domates);
+	domates = get_next_line(fd);
+	printf("%s", domates);
+	domates = get_next_line(fd);
+	printf("%s", domates);
+	domates = get_next_line(fd);
+	printf("%s", domates);
 }
+`
