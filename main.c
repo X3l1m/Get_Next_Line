@@ -4,29 +4,19 @@
 
 int main()
 {
-<<<<<<< HEAD
-	int fd = open("text.txt", O_RDWR);
-	//exit(0);
-	char *domates = get_next_line(fd);
-	//char *domates2 = get_next_line(fd);
-	//char buffer[5];
-	//read(fd, buffer, 5);
-=======
 	int fd = open("text.txt", O_RDONLY);
 	//get_next_line(fd);
 	char *domates;
-	domates = get_next_line(fd);
+	domates = get_next_line(fd);//1
 	//write(1, domates, 100);
->>>>>>> 8bfb2a9a506e9667436c343a5a39a9dca9d331e0
 	printf("%s", domates);
-	domates = get_next_line(fd);
+	domates = get_next_line(fd);//2
 	//write(1, domates, 10);
 	printf("%s", domates);
-	domates = get_next_line(fd);
+	domates = get_next_line(fd);//3
 	printf("%s", domates);
-	domates = get_next_line(fd);
+	domates = get_next_line(fd);//4
 	printf("%s", domates);
-	domates = get_next_line(fd);
+	domates = get_next_line(fd);//5
 	printf("%s", domates);
 }
-`
