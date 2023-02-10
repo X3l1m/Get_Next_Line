@@ -33,15 +33,16 @@ char	*read_line(char *line, char *mem, int fd)
 		if (readed <= 0)
 			{
 				free(buffer);
-				if (*line && readed >= 0)
+				if (*line && readed == 0)
 					return (line);
-				return (free(mem), free(line), NULL);
+				return (NULL);
 			}
 		buffer[readed] = 0;
 		line = ft_strjoin(line, buffer);
 		readed = find_line(line, mem);
 	}
 	free(buffer);
+	free(line);
 	return (line);
 }
 

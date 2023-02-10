@@ -19,4 +19,6 @@ int main()
 	printf("%s", domates);
 	domates = get_next_line(fd);//5
 	printf("%s", domates);
+	close(fd);
+	//system("leaks a.out");
 }

@@ -38,10 +38,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_memcpy(join, s1, p);
 	ft_memcpy(join + p, s2, p1);
+	free((char *)s1);
 	return (join);
 }
 
-char	*ft_strdup(char const *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*rtn;
 
