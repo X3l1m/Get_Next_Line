@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 hellolsdkgva
 sdg
 asga
+=======
+2
+hfxnvg
+>>>>>>> 8bfb2a9a506e9667436c343a5a39a9dca9d331e0

@@ -49,4 +49,4 @@ re: fclean all
 arc: all clean
 	@echo Archive created
 	$(COMPILE) main.c get_next_line.a -o main
-	main.exe
+	./main
