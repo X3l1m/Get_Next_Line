@@ -25,10 +25,11 @@ int	check_line(char *buffer)
 
 char *get_next_line(int fd)
 {
-	static char *buffer = malloc(sizeof(char) * BUFFER_SIZE);
+	char *buffer = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buffer)
 		return (0);
-
+	if (fd < 0 || BUFFER_SIZE < 1 || BUFFER_SIZE > 2147483647)
+		return (NULL);
 	int i = 0;
 	while(i == 0)
 	{
@@ -37,7 +38,7 @@ char *get_next_line(int fd)
 		if (i == -1)
 			return (buffer);
 	}
-	printf("%d", i);
+	//printf("%d", i);
 	char *buff = malloc(i + 1);
 	ft_strlcpy(buff, buffer, i+1);
 	return (buff);
