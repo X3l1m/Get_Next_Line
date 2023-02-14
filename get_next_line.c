@@ -16,6 +16,7 @@ int	find_line(char *line, char *mem)
 		*mem++ = *line;
 		*line = 0;
 	}
+	write(1, "domates", 7);
 	return (0);
 }
 
@@ -32,9 +33,8 @@ char	*read_line(char *line, char *mem, int fd)
 		readed = read(fd, buffer, BUFFER_SIZE);
 		if (readed <= 0)
 			{
-				free(buffer);
 				if (*line && readed == 0)
-					return (line);
+					break;
 				return (NULL);
 			}
 		buffer[readed] = 0;
@@ -42,7 +42,6 @@ char	*read_line(char *line, char *mem, int fd)
 		readed = find_line(line, mem);
 	}
 	free(buffer);
-	free(line);
 	return (line);
 }
 
@@ -66,5 +65,3 @@ char *get_next_line(int fd)
 		return(read_line(line, mem, fd));
 	return (line);
 }
-
-
