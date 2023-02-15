@@ -12,7 +12,7 @@
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2, size_t limit);
 char	*ft_strdup(char *s1);
 
 #endif
