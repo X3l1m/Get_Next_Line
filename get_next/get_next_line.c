@@ -19,7 +19,7 @@ int	read_line(char **line, char **mem, int fd)
 
 	x = 0;
 	readed = read(fd, buffer, BUFFER_SIZE);
-	if (readed < 0)
+	if (readed <= 0)
 		return (0);
 	buffer[readed] = 0;
 	x = check_line(buffer, '\n');
@@ -36,6 +36,22 @@ int	read_line(char **line, char **mem, int fd)
 		return (1);
 	}
 	return (0);
+}
+char *freemem(char *mem, int x)
+{
+	char *newmem;
+	int i;
+
+	i = ft_strlen(mem);
+	newmem = malloc(i - x + 1);
+	i = 0;
+	while (mem[x])
+	{
+		newmem[i++] = mem[x++];
+	}
+	newmem[i] = 0;
+	free(mem);
+	return(newmem);
 }
 
 char	*get_next_line(int fd)
@@ -56,11 +72,14 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, mem, (size_t)x);
 		if (x <= 0)
 		{
-			mem = mem + -x;
+			if (mem || x != 0)
+				free(mem);
 			x = read_line(&line, &mem, fd);
+			if(*mem == 0)
+			free(mem);
 		}
 		else
-			mem = mem + x;
+			mem = freemem(mem, x);
 	}
 	if (x <= 0 && !*line)
 		return (free(line), NULL);

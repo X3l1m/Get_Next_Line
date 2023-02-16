@@ -1,67 +1,75 @@
 #include "get_next_line.h"
 
-void	ft_bzero(char *s)
-{
-	while (*s)
-		*s++ = 0;
-}
 
-int	find_line(char *line, char *mem)
+int check_line(char *str)
 {
-	while (*line != '\n')
-		if (!*line++)
-			return (1);
-	while (*++line)
-	{
-		*mem++ = *line;
-		*line = 0;
+	int i;
+
+	i = 0;
+	while(str[i])
+	{	if(str[i++] == '\n')
+		{
+			if(str[i])
+				return (i);
+			return (-i);
+		}
 	}
-	write(1, "domates", 7);
 	return (0);
 }
 
-char	*read_line(char *line, char *mem, int fd)
+char	*read_line(int fd, char *mem)
 {
-	char	*buffer;
-	int		readed;
+	ssize_t readed;
 
-	buffer = malloc(BUFFER_SIZE + 1);
-	if	(!buffer)
-		return (0);
-	while(readed)
-	{
-		readed = read(fd, buffer, BUFFER_SIZE);
-		if (readed <= 0)
-			{
-				if (*line && readed == 0)
-					break;
-				return (NULL);
-			}
-		buffer[readed] = 0;
-		line = ft_strjoin(line, buffer);
-		readed = find_line(line, mem);
-	}
-	free(buffer);
+	char buffer[BUFFER_SIZE + 1];
+	readed = read(fd, buffer, BUFFER_SIZE);
+	buffer[readed] = 0;
+	if (!readed)
+		return(mem);
+	if (readed < 0)
+		return (NULL);
+	mem = ft_strjoin(mem, buffer);
+	if	(check_line(mem))
+		return (mem);
+	return(read_line(fd, mem));
+}
+
+char	*trim_mem(char ***mem, int point)
+{
+	char *line;
+	line = malloc(point);
+	line[point] = 0;
+	ft_memcpy(line, **mem, point);
+	**mem = ft_strdup(**mem + point);
 	return (line);
 }
 
+char	*find_next(char **mem)
+{
+	char	*line;
+	int		i;
+	
+	i = check_line(*mem);
+	if (i < 0)
+	{
+		line = ft_strdup(*mem);
+		return(free(*mem), line);
+	}
+	line = trim_mem(&mem, i);
+	return(line);
+}
+
+
 char *get_next_line(int fd)
 {
-	char		*line;
 	static char	*mem;
-
+	char		*line;
+	
 	if (fd < 0 || BUFFER_SIZE < 1 || BUFFER_SIZE > 2147483647)
 		return (NULL);
- 	if (!mem)
-	{
-		mem = malloc(0);
-		ft_bzero(mem);
-	}
-	if (!mem)
-		return (0);
-	line = ft_strdup(mem);
-	ft_bzero(mem);
-	if(find_line(line, mem))
-		return(read_line(line, mem, fd));
+	mem = read_line(fd, mem);
+	if(!mem)
+		return (NULL);
+	line = find_next(&mem);
 	return (line);
 }

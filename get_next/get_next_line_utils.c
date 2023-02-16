@@ -1,8 +1,8 @@
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -45,6 +45,14 @@ char	*ft_strjoin(char  *s1, char const *s2, size_t limit)
 	return (join);
 }
 
+
+
+void	ft_bzero(void *s, size_t n)
+{
+	while (n-- > 0)
+		*(char *)(s + n) = 0;
+}
+
 char	*ft_strdup(char const *s1)
 {
 	char	*rtn;
@@ -56,12 +64,6 @@ char	*ft_strdup(char const *s1)
 		return (NULL);
 	ft_memcpy(rtn, s1, len);
 	return (rtn);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	while (n-- > 0)
-		*(char *)(s + n) = 0;
 }
 
 void	*ft_calloc(size_t count, size_t size)
