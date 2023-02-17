@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
-#include <execinfo.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -175,11 +174,11 @@ int main()
 	char *domates;
 	domates = get_next_line(fd);//1
 	printf("%s", domates);
-	free(domates);
+	//free(domates);
 
-/* 	domates = get_next_line(fd);//2
+	domates = get_next_line(fd);//2
 	printf("%s", domates);
-	free(domates);
+	//free(domates);
 
 	domates = get_next_line(fd);//3
 	printf("%s", domates);
@@ -195,7 +194,7 @@ int main()
 
 	domates = get_next_line(fd);//6
 	printf("%s", domates);
-	free(domates); */
+	free(domates);
 
 	close(fd);
 	//check_leaks();

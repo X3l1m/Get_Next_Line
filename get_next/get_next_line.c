@@ -1,44 +1,57 @@
 #include "get_next_line.h"
 
-int	check_line(char* str, char c)
+int	check_line(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != c && str[i])
-		if(!str[++i])
-			return (-i);
-	return (i);
+	while (str[i])
+		if (str[i++] == c)
+			return (i);
+	return (-i);
 }
-
 
 int	read_line(char **line, char **mem, int fd)
 {
-	char*	buffer;
-	int		readed;
+	char	buffer[BUFFER_SIZE + 1];
 	int		x;
+	ssize_t	readed;
 
 	x = 0;
-	readed = 1;
-	buffer = malloc(BUFFER_SIZE + 1);
-	while (readed > 0)
+	readed = read(fd, buffer, BUFFER_SIZE);
+	if (readed <= 0)
+		return (0);
+	buffer[readed] = 0;
+	x = check_line(buffer, '\n');
+	if (x < 0)
 	{
-		readed = read(fd, buffer, BUFFER_SIZE);
-		if (readed < 0)
-			return (free(buffer), 0);
-		buffer[readed] = 0;
-		x = check_line(buffer, '\n');
-		if(x < 0)
-			*line = ft_strjoin(*line, buffer, x);
-		else if (x > 0)
-		{
-			*line = ft_strjoin(*line, buffer, x);
-			*mem = ft_strdup(buffer + (x + 1));
-			break;
-		}
+		*line = ft_strjoin(*line, buffer, (size_t)x);
+		read_line(line, mem, fd);
 	}
-	free(buffer);
-	return (readed);
+	else if (x > 0)
+	{
+		*line = ft_strjoin(*line, buffer, (size_t)x);
+		if ((int)ft_strlen(buffer) > x)
+			*mem = ft_strdup(buffer + x);
+		return (1);
+	}
+	return (0);
+}
+char *freemem(char *mem, int x)
+{
+	char *newmem;
+	int i;
+
+	i = ft_strlen(mem);
+	newmem = malloc(i - x + 1);
+	i = 0;
+	while (mem[x])
+	{
+		newmem[i++] = mem[x++];
+	}
+	newmem[i] = 0;
+	free(mem);
+	return(newmem);
 }
 
 char	*get_next_line(int fd)
@@ -48,22 +61,27 @@ char	*get_next_line(int fd)
 	int			x;
 
 	x = 0;
-	line = malloc(1);
-	line[0] = 0;
+	line = ft_calloc(1, 1);
+	if (!line)
+		return (0);
 	if (!mem)
 		x = read_line(&line, &mem, fd);
 	else
 	{
 		x = check_line(mem, '\n');
-		line = ft_strjoin(line, mem, x);
-		mem = mem + (x + 1);
+		line = ft_strjoin(line, mem, (size_t)x);
 		if (x <= 0)
 		{
-			free(mem);
+			if (mem || x != 0)
+				free(mem);
 			x = read_line(&line, &mem, fd);
+			if(*mem == 0)
+			free(mem);
 		}
+		else
+			mem = freemem(mem, x);
 	}
-	if (!x)
-		return (NULL);
-	return(line);
+	if (x <= 0 && !*line)
+		return (free(line), NULL);
+	return (line);
 }

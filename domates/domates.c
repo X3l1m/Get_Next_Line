@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+size_t domates(size_t x)
+{
+	x++;
+	return(x);
+}
+
+
 int main()
 {
-	char *domates = "hello";
-	domates = domates - 2;
-	printf("%s", domates);
+	int x = -2;
+	printf("%zu", domates((size_t)x));
 }
