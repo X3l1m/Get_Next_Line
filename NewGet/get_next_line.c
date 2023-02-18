@@ -56,7 +56,7 @@ char	*find_next(char **mem)
 	if (i <= 0)
 	{
 		line = ft_strdup(*mem);
-		ft_bzero(*mem);
+		*mem = NULL;
 		free(*mem);
 		return(line);
 	}

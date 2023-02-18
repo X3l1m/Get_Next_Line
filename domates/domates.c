@@ -1,15 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-size_t domates(size_t x)
+int domates(void)
 {
-	x++;
-	return(x);
+	char *mem;
+	mem =  calloc(10, 1);
+	free(mem);
+	if (!mem)
+		return(0);
+	if  (mem)
+		return (1);
+	return(2);
 }
 
 
 int main()
 {
-	int x = -2;
-	printf("%zu", domates((size_t)x));
+	int i;
+	i = domates();
+	printf("%d", i);
 }
