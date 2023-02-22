@@ -1,6 +1,5 @@
 #include "get_next_line.h"
 
-
 int check_line(char *str)
 {
 	int i;
