@@ -42,11 +42,7 @@ char	*trim_mem(char ***mem, int point)
 	**mem = **mem + point;
 	return (line);
 }
-void	ft_bzero(char *s)
-{
-	while(*s)
-		*s++ = 0;
-}
+
 char	*find_next(char **mem)
 {
 	char	*line;
@@ -63,7 +59,6 @@ char	*find_next(char **mem)
 	line = trim_mem(&mem, i);
 	return(line);
 }
-
 
 char *get_next_line(int fd)
 {
