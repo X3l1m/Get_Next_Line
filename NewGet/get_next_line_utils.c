@@ -26,13 +26,14 @@ char	*ft_strnew(char *str, size_t point)
 	char	*rtn;
 	size_t	len;
 
-	len = ft_strlen(str + point) + 1;
+	str = str + point;
+	len = ft_strlen(str) + 1;
 	rtn = malloc(len);
 	if (!rtn)
 		return (NULL);
-	rtn = ft_memcpy(rtn, str + point, len);
+	rtn = ft_memcpy(rtn, str, len);
 	rtn[len - 1] = 0;
-	free(str);
+	free(str - point);
 	return (rtn);
 }
 
@@ -48,6 +49,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
 		i++;
 	}
+	//free(src);
 	return (dst);
 }
 
@@ -69,7 +71,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		p = ft_strlen(s1);
 	join = malloc(p + p1);
 	if (!join)
-		return (NULL);
+		return (free(s1), NULL);
 	ft_memcpy(join, s1, p);
 	ft_memcpy(join + p, s2, p1);
 	free(s1);

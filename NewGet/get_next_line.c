@@ -42,12 +42,12 @@ char	*trim_mem(char ***mem, size_t point)
 
 	line = malloc(point + 1);
 	if (!line)
-		return (NULL);
+		return (free(**mem), NULL);
 	line[point] = 0;
 	ft_memcpy(line, **mem, point);
 	**mem = ft_strnew(**mem, point);
 	if (!**mem)
-		return (NULL);
+		return (free(line), NULL);
 	return (line);
 }
 

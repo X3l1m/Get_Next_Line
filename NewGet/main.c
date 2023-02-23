@@ -38,5 +38,5 @@ int main()
 	// free(domates);
 
 	close(fd);
-	//system("leaks main");
+	system("leaks main");
 }
