@@ -172,12 +172,18 @@ int main()
 {
 	int fd = open("text.txt", O_RDONLY);
 	//get_next_line(fd);
-	char *domates;
-	domates = get_next_line(fd);//1
+	char *domates = "";
+	while (domates)
+	{
+		domates = get_next_line(fd);
+		printf("%s", domates);
+	}
+	
+/*	domates = get_next_line(fd);//1
 	printf("%s", domates);
 	free(domates);
 
-/* 	domates = get_next_line(fd);//2
+ 	domates = get_next_line(fd);//2
 	printf("%s", domates);
 	free(domates);
 

@@ -3,7 +3,7 @@
 
 int main()
 {
-	int fd = open("read_error.txt", O_RDONLY);
+	int fd = open("text.txt", O_RDONLY);
 	//get_next_line(fd);
 	char *domates = "";
 	while (domates)

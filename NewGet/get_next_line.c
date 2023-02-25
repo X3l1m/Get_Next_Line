@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: seyildir <seyildir@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/25 23:08:09 by seyildir      #+#    #+#                 */
+/*   Updated: 2023/02/25 23:08:29 by seyildir      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	check_line(char *str)
@@ -26,7 +38,7 @@ char	*read_line(int fd, char *mem)
 	if (!readed)
 		return (mem);
 	if (readed < 0)
-		return (NULL);
+		return (free(mem), NULL);
 	buffer[readed] = 0;
 	mem = ft_strjoin(mem, buffer);
 	if (!mem)
@@ -34,21 +46,6 @@ char	*read_line(int fd, char *mem)
 	if (check_line(mem))
 		return (mem);
 	return (read_line(fd, mem));
-}
-
-char	*trim_mem(char ***mem, size_t point)
-{
-	char	*line;
-
-	line = malloc(point + 1);
-	if (!line)
-		return (free(**mem), NULL);
-	line[point] = 0;
-	ft_memcpy(line, **mem, point);
-	**mem = ft_strnew(**mem, point);
-	if (!**mem)
-		return (free(line), NULL);
-	return (line);
 }
 
 char	*find_next(char **mem)
@@ -64,7 +61,14 @@ char	*find_next(char **mem)
 		*mem = NULL;
 		return (line);
 	}
-	line = trim_mem(&mem, (size_t)i);
+	line = malloc((size_t)i + 1);
+	if (!line)
+		return (free(*mem), NULL);
+	line[i] = 0;
+	ft_memcpy(line, *mem, i);
+	*mem = ft_strnew(mem, i);
+	if (!*mem)
+		return (free(line), NULL);
 	return (line);
 }
 

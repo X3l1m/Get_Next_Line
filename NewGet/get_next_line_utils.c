@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_utils.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: seyildir <seyildir@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/25 23:08:11 by seyildir      #+#    #+#                 */
+/*   Updated: 2023/02/25 23:08:11 by seyildir      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
@@ -21,20 +33,20 @@ char	*ft_strdup(char const *s1)
 	return (rtn);
 }
 
-char	*ft_strnew(char *str, size_t point)
+char	*ft_strnew(char **str, int point)
 {
 	char	*rtn;
 	size_t	len;
 
-	str = str + point;
-	len = ft_strlen(str) + 1;
+	if (!*str)
+		return (free(*str), NULL);
+	len = ft_strlen(*str + point) + 1;
 	rtn = malloc(len);
 	if (!rtn)
-		return (NULL);
-	rtn = ft_memcpy(rtn, str, len);
+		return (free(*str), NULL);
+	rtn = ft_memcpy(rtn, *str + point, len);
 	rtn[len - 1] = 0;
-	free(str - point);
-	return (rtn);
+	return (free(*str), rtn);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
@@ -49,7 +61,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
 		i++;
 	}
-	//free(src);
 	return (dst);
 }
 
