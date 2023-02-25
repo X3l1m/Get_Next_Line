@@ -6,7 +6,7 @@
 /*   By: seyildir <seyildir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/25 23:08:09 by seyildir      #+#    #+#                 */
-/*   Updated: 2023/02/25 23:08:29 by seyildir      ########   odam.nl         */
+/*   Updated: 2023/02/25 23:21:36 by seyildir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*read_line(int fd, char *mem)
 	mem = ft_strjoin(mem, buffer);
 	if (!mem)
 		return (NULL);
-	if (check_line(mem))
+	if (check_line(buffer))
 		return (mem);
 	return (read_line(fd, mem));
 }
@@ -66,7 +66,7 @@ char	*find_next(char **mem)
 		return (free(*mem), NULL);
 	line[i] = 0;
 	ft_memcpy(line, *mem, i);
-	*mem = ft_strnew(mem, i);
+	*mem = ft_strnew(*mem, i);
 	if (!*mem)
 		return (free(line), NULL);
 	return (line);

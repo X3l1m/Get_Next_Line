@@ -15,7 +15,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char const *s1);
 int		check_line(char *str);
-char	*ft_strnew(char **str, int point);
+char	*ft_strnew(char *str, int point);
 char	*get_next_line(int fd);
 
 #endif

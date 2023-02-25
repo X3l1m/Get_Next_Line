@@ -6,7 +6,7 @@
 /*   By: seyildir <seyildir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/25 23:08:11 by seyildir      #+#    #+#                 */
-/*   Updated: 2023/02/25 23:08:11 by seyildir      ########   odam.nl         */
+/*   Updated: 2023/02/25 23:19:56 by seyildir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ char	*ft_strdup(char const *s1)
 	return (rtn);
 }
 
-char	*ft_strnew(char **str, int point)
+char	*ft_strnew(char *str, int point)
 {
 	char	*rtn;
 	size_t	len;
 
-	if (!*str)
-		return (free(*str), NULL);
-	len = ft_strlen(*str + point) + 1;
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str + point) + 1;
 	rtn = malloc(len);
 	if (!rtn)
-		return (free(*str), NULL);
-	rtn = ft_memcpy(rtn, *str + point, len);
+		return (free(str), NULL);
+	rtn = ft_memcpy(rtn, str + point, len);
 	rtn[len - 1] = 0;
-	return (free(*str), rtn);
+	return (free(str), rtn);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
